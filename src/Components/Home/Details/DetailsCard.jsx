@@ -108,7 +108,7 @@ const DetailsCard = () => {
 
           <div className="text-left mt-4">
             <h1 className="text-4xl font-bold">price: ${loader.price} </h1>
-            <Link to={`/checkout`}>
+            <Link to={`/checkout/${loader._id}`}>
               <button className="btn bg-[#ff3811] mt-4 text-white px-28">
                 Proceed Checkout
               </button>
