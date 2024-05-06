@@ -8,6 +8,7 @@ import { AuthContext } from "../Provaider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../FireBase/FireBase.config";
+import Swal from "sweetalert2";
 
 const signUp = () => {
   const auth = getAuth(app);
@@ -30,8 +31,21 @@ const signUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        Swal.fire({
+          title: "Good job!",
+          text: "Sign Up Successfully!!",
+          icon: "success",
+        });
       })
-      .then((error) => console.log(error));
+      .then((error) => {
+        const message = error.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: message,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
   };
 
   //sign up using google

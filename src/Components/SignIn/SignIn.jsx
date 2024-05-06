@@ -7,6 +7,7 @@ import { AuthContext } from "../Provaider/AuthProvider";
 import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../FireBase/FireBase.config";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
   const auth = getAuth(app);
@@ -25,12 +26,16 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        alert("sign in successfully !!!");
+        Swal.fire({
+          title: "Good job!",
+          text: "Sign in Successfully!!",
+          icon: "success",
+        });
          Navigate(location?.state ? location.state : '/');
       })
       .catch((error) => {
         console.log(error);
-        // alert(error)
+        alert(error)
       });
   };
 

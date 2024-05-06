@@ -8,6 +8,9 @@ import ServiceDetails from "../Components/Home/Details/ServiceDetails";
 import CheckOut from "../Components/CheckOut/CheckOut";
 import AllServices from "../Components/AllServices/AllServices";
 import AboutUs from "../Components/AboutUs/AboutUs";
+import CartPage from "../Components/Cart Details/CartPage";
+import PrivateRoute from "./PrivateRoute";
+
 
 
 const router = createBrowserRouter([
@@ -45,6 +48,13 @@ const router = createBrowserRouter([
           path:'/checkout/:id',
           element:<CheckOut></CheckOut>,
           loader:({params})=> fetch(`http://localhost:5000/services/${params.id}`)
+        },
+        {
+          path:'/cartpage',
+          element:<PrivateRoute>
+            <CartPage></CartPage>
+          </PrivateRoute>
+          ,
         }
       ]
     },

@@ -10,9 +10,9 @@ import { AuthContext } from "../Provaider/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     logOut();
-  }
+  };
 
   const nablink = (
     <div className="text-xl space-x-12">
@@ -21,9 +21,8 @@ const Navbar = () => {
       <NavLink to={"/allservices"}>Services</NavLink>
       <NavLink to={"/"}>Blog</NavLink>
       <NavLink to={"/"}>Contact</NavLink>
-  
-      {
-      user ? (
+
+      {user ? (
         <a onClick={handleLogout} className="btn bg-[#ffbe00] text-white">
           Sign out
         </a>
@@ -71,9 +70,11 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
-            <MdOutlineAddShoppingCart className="h-5 w-5" />
-          </button>
+          <Link to={'/cartpage'}>
+            <button className="btn btn-ghost btn-circle">
+              <MdOutlineAddShoppingCart className="h-5 w-5" />
+            </button>
+          </Link>
           <button className="btn btn-ghost btn-circle mr-2">
             <CiSearch className="h-5 w-5" />
           </button>

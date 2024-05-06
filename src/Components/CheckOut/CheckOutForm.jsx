@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 
 
 
@@ -38,9 +39,14 @@ const CheckOutForm = ({loader}) => {
         })
         .then(res => res.json())
         .then(data=>{
-            console.log(data);
-            event.reset();
-            alert("order confirmed!!!")
+          console.log(data);
+            if(data.insertedId){
+              Swal.fire({
+                title: "Good job!",
+                text: "You order Confirm!",
+                icon: "success"
+              });
+            }
         })
 
     }
