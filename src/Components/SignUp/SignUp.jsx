@@ -9,6 +9,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../FireBase/FireBase.config";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const signUp = () => {
   const auth = getAuth(app);
@@ -37,7 +38,7 @@ const signUp = () => {
           icon: "success",
         });
       })
-      .then((error) => {
+      .catch((error) => {
         const message = error.message;
         Swal.fire({
           icon: "error",
@@ -63,6 +64,7 @@ const signUp = () => {
 
   return (
     <div>
+      <Helmet><title>Car Doctor | Sign Up</title></Helmet>
       <div className="hero ">
         <div className="hero-content flex-col lg:flex-row gap-10">
           <div className="w-1/2 mr-20">

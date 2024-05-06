@@ -1,56 +1,52 @@
+import { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Provaider/AuthProvider";
 
+const CheckOutForm = ({ loader }) => {
+  const { user } = useContext(AuthContext);
+  const { _id, title, img, price } = loader;
 
+  const handleCheckOut = (event) => {
+    event.preventDefault();
 
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const date = form.date.value;
+    const phone = form.phone.value;
 
-const CheckOutForm = ({loader}) => {
+    const checkoutInfo = {
+      name,
+      email,
+      date,
+      phone,
+      title,
+      img,
+      price,
+    };
 
-    const {_id, title, img, price} = loader;
+    console.log(checkoutInfo);
 
-    const handleCheckOut = event =>{
-        event.preventDefault();
-
-        const form = event.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const date = form.date.value;
-        const phone = form.phone.value;
-
-        const checkoutInfo = {
-            name,
-            email,
-            date,
-            phone,
-            title,
-            img,
-            price
+    //post data in server
+    fetch("http://localhost:5000/checkout", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(checkoutInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: "You order Confirm!",
+            icon: "success",
+          });
         }
-
-        console.log(checkoutInfo);
-
-        //post data in server 
-        fetch('http://localhost:5000/checkout',{
-            method: 'POST',
-            headers:{
-                'content-type' : 'application/json'
-            },
-            body:JSON.stringify(checkoutInfo)
-            
-        })
-        .then(res => res.json())
-        .then(data=>{
-          console.log(data);
-            if(data.insertedId){
-              Swal.fire({
-                title: "Good job!",
-                text: "You order Confirm!",
-                icon: "success"
-              });
-            }
-        })
-
-    }
-
+      });
+  };
 
   return (
     <div className="mt-10">
@@ -79,6 +75,7 @@ const CheckOutForm = ({loader}) => {
               </label>
               <label className="input-group">
                 <input
+                  defaultValue={user?.email}
                   type="email"
                   name="email"
                   placeholder="email"
@@ -112,6 +109,7 @@ const CheckOutForm = ({loader}) => {
                 <input
                   type="date"
                   name="date"
+                  required
                   className="input input-bordered w-full"
                 />
               </label>

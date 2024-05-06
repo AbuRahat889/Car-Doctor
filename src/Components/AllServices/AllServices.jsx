@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import AllServiceCard from "./AllServiceCard";
+import { Helmet } from "react-helmet-async";
 
 const AllServices = () => {
   return (
     <div>
+      <Helmet>
+        <title>Car Doctor | AllServices</title>
+      </Helmet>
       <div
         className="hero h-48 rounded-lg"
         style={{
@@ -28,7 +32,7 @@ const AllServices = () => {
         </div>
       </div>
 
-     <AllServiceCard></AllServiceCard>
+      <AllServiceCard></AllServiceCard>
     </div>
   );
 };

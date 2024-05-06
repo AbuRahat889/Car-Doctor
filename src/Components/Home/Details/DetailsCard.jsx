@@ -33,13 +33,17 @@ const DetailsCard = () => {
               <FaArrowRightLong />
             </div>
             <div className="bg-white hover:bg-[#ff3811] hover:text-white text-left p-2 px-5 rounded-md flex items-center justify-between">
-              <h1 className=" font-semibold ">Battery Charge</h1>
+              <h1 className=" font-semibold ">
+                Battery Charge
+                </h1>
               <FaArrowRightLong />
+             
+              
             </div>
           </div>
         </div>
       </div>
-
+      
       <div className="flex ">
         <div className="text-left flex-1">
           <h1 className="text-3xl font-bold ">{loader.title}</h1>

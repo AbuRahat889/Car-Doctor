@@ -3,10 +3,12 @@
 
 import { Link } from "react-router-dom";
 import CartDetails from "./CartDetails";
+import { Helmet } from "react-helmet-async";
 
 const CartPage = () => {
   return (
     <div>
+        <Helmet><title>Car Doctor | Cart Page</title></Helmet>
       <div
         className="hero h-48 rounded-lg"
         style={{

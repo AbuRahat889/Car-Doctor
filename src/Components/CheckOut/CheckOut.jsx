@@ -1,10 +1,12 @@
 import { Link, useLoaderData } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
+import { Helmet } from "react-helmet-async";
 
 const CheckOut = () => {
     const loader = useLoaderData();
   return (
     <div>
+      <Helmet><title>Car Doctor | CheckOut</title></Helmet>
       <div
         className="hero h-48 rounded-lg"
         style={{

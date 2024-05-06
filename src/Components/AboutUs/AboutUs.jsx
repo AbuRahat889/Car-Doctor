@@ -1,10 +1,11 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-
 const AboutUs = () => {
-    return (
-        <div>
-            <div
+  return (
+    <div>
+      <Helmet><title>Car Doctor | About</title></Helmet>
+      <div
         className="hero h-48 rounded-lg"
         style={{
           backgroundImage: "url(https://i.ibb.co/xJgDkL8/person.jpg)",
@@ -27,8 +28,8 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default AboutUs;

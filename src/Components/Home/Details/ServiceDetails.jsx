@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import DetailsCard from "./DetailsCard";
+import { Helmet } from "react-helmet-async";
 const ServiceDetails = () => {
   
 //   console.log(loader);
 
   return (
     <div>
+      <Helmet><title>Car Doctor | Details</title></Helmet>
       <div
         className="hero h-48 rounded-lg"
         style={{
