@@ -4,11 +4,11 @@ import { AuthContext } from "../Components/Provaider/AuthProvider";
 
 
 const PrivateRoute = ({ children }) => {
-    const {user, loading} = useContext(AuthContext);
+    const {user, loader} = useContext(AuthContext);
     const location = useLocation();
 
     //loading
-    if(loading){
+    if(loader){
         return <span className="loading loading-dots loading-lg"></span>;
     }
 
@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }) => {
     }
 
 
-    return <span><Navigate to={'/signin'} state={location.pathname}></Navigate> </span>;
+    return <span><Navigate state={location.pathname} to={'/signin'} ></Navigate> </span>;
 };
 
 export default PrivateRoute;

@@ -1,8 +1,7 @@
-
 import img from "../../assets/images/login/login.svg";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare, FaGithub } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provaider/AuthProvider";
 import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
@@ -10,14 +9,15 @@ import { getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../FireBase/FireBase.config";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 const SignIn = () => {
-
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const fbprovaider = new FacebookAuthProvider();
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   //sign in using email
   const handleSignIn = (event) => {
@@ -27,25 +27,33 @@ const SignIn = () => {
     const password = form.password.value;
     // console.log(email);
 
-
     //sign in using email
     signIn(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        const loggedInUser = result.user;
+        const user = { email };
+        console.log(loggedInUser);
         Swal.fire({
           title: "Good job!",
           text: "Sign in Successfully!!",
           icon: "success",
         });
-        navigate(location?.state ? location.state : '/');
+        //get token from jwt
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+            if(res.data.sucssess){
+              navigate(location?.state ? location.state : "/");
+            }
+          }); 
       })
       .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: error,
-          footer: '<a href="#">Why do I have this issue?</a>'
+          footer: '<a href="#">Why do I have this issue?</a>',
         });
       });
   };
@@ -61,7 +69,7 @@ const SignIn = () => {
           text: "Sign in Successfully!!",
           icon: "success",
         });
-        navigate(location?.state ? location.state : '/');
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +77,7 @@ const SignIn = () => {
           icon: "error",
           title: "Oops...",
           text: error,
-          footer: '<a href="#">Why do I have this issue?</a>'
+          footer: '<a href="#">Why do I have this issue?</a>',
         });
       });
   };
@@ -85,21 +93,23 @@ const SignIn = () => {
           text: "Sign in Successfully!!",
           icon: "success",
         });
-        navigate(location?.state ? location.state : '/');
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: error,
-          footer: '<a href="#">Why do I have this issue?</a>'
+          footer: '<a href="#">Why do I have this issue?</a>',
         });
       });
   };
 
   return (
     <div>
-      <Helmet><title>Car Doctor | Sign In </title></Helmet>
+      <Helmet>
+        <title>Car Doctor | Sign In </title>
+      </Helmet>
       <div className="hero ">
         <div className="hero-content flex-col lg:flex-row gap-10">
           <div className="w-1/2 mr-20">

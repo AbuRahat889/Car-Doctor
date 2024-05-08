@@ -1,19 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provaider/AuthProvider";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const CartDetails = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   //   console.log(user);
 
+  const url = `http://localhost:5000/checkout?email=${user?.email}`;
   useEffect(() => {
-    fetch(`http://localhost:5000/checkout?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setCart(data);
-      });
+
+    //***load data use axios */
+    axios.get(url)
+    .then(res=>{
+      setCart(res.data)
+    })
+    
+
+    // fetch(`http://localhost:5000/checkout?email=${user?.email}`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setCart(data);
+    //   });
   }, []);
 
   //handle delete button
