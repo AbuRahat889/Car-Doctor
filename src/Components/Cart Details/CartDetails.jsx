@@ -12,19 +12,19 @@ const CartDetails = () => {
   useEffect(() => {
 
     //***load data use axios */
-    axios.get(url)
+    axios.get(url,{withCredentials:true})
     .then(res=>{
       setCart(res.data)
     })
     
 
-    // fetch(`http://localhost:5000/checkout?email=${user?.email}`)
+    // fetch(url,{credentials:"include"})
     //   .then((res) => res.json())
     //   .then((data) => {
     //     console.log(data);
     //     setCart(data);
     //   });
-  }, []);
+  }, [url]);
 
   //handle delete button
   const handleDelete = (id) => {

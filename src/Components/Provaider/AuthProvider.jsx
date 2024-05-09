@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../../FireBase/FireBase.config";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -25,8 +26,32 @@ const AuthProvider = ({ children }) => {
   //check user all ready exit or not
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const currentEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: currentEmail };
       setUser(currentUser);
       setLoader(false);
+
+      //set token from jwt *********************/
+      if (currentUser) {
+        axios
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("token paisi : ", res.data);
+          });
+      }
+      //if user log out then cookie is clear
+      else {
+        axios
+          .post("http://localhost:5000/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("user log out ", res.data);
+          });
+      }
+      //************************** end token /
     });
     return () => {
       return unsubscribe();

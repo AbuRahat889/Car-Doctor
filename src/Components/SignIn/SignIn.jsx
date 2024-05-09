@@ -9,7 +9,6 @@ import { getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../FireBase/FireBase.config";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 
 const SignIn = () => {
   const auth = getAuth(app);
@@ -31,7 +30,7 @@ const SignIn = () => {
     signIn(email, password)
       .then((result) => {
         const loggedInUser = result.user;
-        const user = { email };
+
         console.log(loggedInUser);
         Swal.fire({
           title: "Good job!",
@@ -39,14 +38,6 @@ const SignIn = () => {
           icon: "success",
         });
         //get token from jwt
-        axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-            if(res.data.sucssess){
-              navigate(location?.state ? location.state : "/");
-            }
-          }); 
       })
       .catch((error) => {
         Swal.fire({
